@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOLARDTX – INTELLIGENT DIGITAL TWIN SYSTEM</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body class="theme-space">
+  <div id="bg-grid"></div>
+  <div id="particles"></div>
+  <div id="aiScan" class="ai-scan"></div>
+
+  <div class="hud-shell">
+    <header class="topbar glass-panel fade-in">
+      <h1 class="logo">SOLARDTX – DIGITAL TWIN CONTROL</h1>
+      <div class="topbar-actions">
+        <button id="themeBtn" class="hud-btn" type="button">Theme: Deep Space</button>
+        <button id="presentationBtn" class="hud-btn" type="button">Presentation Mode</button>
+      </div>
+    </header>
+
+    <main class="main-layout fade-in">
+      <section class="zone zone-metrics glass-panel">
+        <h2 class="zone-title">LIVE METRICS GRID</h2>
+        <div class="metrics-grid">
+          <article class="metric-card"><p>Voltage</p><h3><span id="voltage" data-value="0">0.00</span><small>V</small></h3></article>
+          <article class="metric-card"><p>Current</p><h3><span id="current" data-value="0">0.00</span><small>A</small></h3></article>
+          <article class="metric-card"><p>Power</p><h3><span id="power" data-value="0">0.00</span><small>W</small></h3></article>
+          <article class="metric-card"><p>Temperature</p><h3><span id="temperature" data-value="0">0.00</span><small>°C</small></h3></article>
+          <article class="metric-card"><p>Expected Power</p><h3><span id="expected" data-value="0">0.00</span><small>W</small></h3></article>
+          <article class="metric-card"><p>Efficiency</p><h3><span id="efficiency" data-value="0">0.00</span><small>%</small></h3></article>
+          <article id="statusCard" class="metric-card status-card normal">
+            <p>System Status</p>
+            <h3><span id="warningIcon" class="warning-icon">⚠</span><span id="statusText">Normal</span></h3>
+            <p id="predictiveMessage" class="status-sub">Predictive state stable</p>
+            <p id="ttfEstimate" class="status-eta">Time-to-failure: &gt;240h</p>
+          </article>
+        </div>
+
+        <div class="ai-intelligence">
+          <article class="ai-health-panel metric-card">
+            <p>AI Health Score</p>
+            <div id="healthGauge" class="health-gauge healthy" style="--score:0;">
+              <div class="health-center">
+                <span id="healthScore" data-value="0">0</span><small>%</small>
+              </div>
+            </div>
+          </article>
+
+          <article class="prediction-panel metric-card">
+            <p>AI Prediction Panel</p>
+            <h3 id="predictionState" class="prediction-state">Optimal Performance</h3>
+            <div id="predictionTransition" class="prediction-transition">Model calibrated</div>
+            <ul class="prediction-list">
+              <li id="pred-optimal">Optimal Performance</li>
+              <li id="pred-cleaning">Cleaning Recommended</li>
+              <li id="pred-degrading">Performance Degradation Detected</li>
+              <li id="pred-maintenance">Maintenance Required Within 72 Hours</li>
+              <li id="pred-critical">Critical Failure Risk</li>
+            </ul>
+          </article>
+        </div>
+
+        <p id="anomalyMessage" class="anomaly-message">Anomaly detected: sudden output drop observed.</p>
+      </section>
+
+      <section class="zone zone-twin glass-panel">
+        <h2 class="zone-title">DIGITAL TWIN VISUALIZATION</h2>
+        <div class="twin-wrap">
+          <div class="solar-rig holo-node">
+            <div class="solar-panel-3d wireframe-panel">
+              <span class="panel-grid"></span>
+              <span class="panel-grid"></span>
+              <span class="panel-grid"></span>
+            </div>
+            <p>Physical Solar Array</p>
+          </div>
+
+          <div class="energy-bridge" id="energyBridge">
+            <span class="energy-line"></span>
+            <span class="energy-line"></span>
+            <span class="energy-line"></span>
+            <span class="beam-particle"></span>
+            <span class="beam-particle"></span>
+            <span class="beam-particle"></span>
+            <span class="beam-particle"></span>
+          </div>
+
+          <div class="twin-rig holo-node">
+            <div class="twin-box holo-twin" id="holoTwin">
+              <span class="twin-layer"></span>
+              <span class="twin-layer"></span>
+              <span class="twin-layer"></span>
+              <span class="twin-scanline"></span>
+            </div>
+            <p>AI Digital Twin</p>
+          </div>
+        </div>
+
+        <div class="twin-stats" id="twinStats">
+          <div class="stat-chip"><span>Sync Accuracy</span><strong id="syncAccuracy" data-value="98">98.0%</strong></div>
+          <div class="stat-chip"><span>AI Confidence</span><strong id="aiConfidence" data-value="95">95.0%</strong></div>
+          <div class="stat-chip"><span>Prediction Confidence</span><strong id="predictionConfidence" data-value="94">94.0%</strong></div>
+        </div>
+      </section>
+
+      <section class="zone zone-graph glass-panel">
+        <h2 class="zone-title">LIVE POWER GRAPH</h2>
+        <canvas id="powerChart"></canvas>
+      </section>
+    </main>
+
+    <aside class="controls glass-panel fade-in">
+      <h2 class="zone-title">MANUAL CONTROL PANEL</h2>
+      <label for="sunlight">Sunlight Intensity <span id="sunlightVal">0.80</span></label>
+      <input id="sunlight" type="range" min="0.2" max="1" step="0.01" value="0.8">
+
+      <label for="dust">Dust Level <span id="dustVal">0.00</span></label>
+      <input id="dust" type="range" min="0" max="0.5" step="0.01" value="0">
+
+      <label for="manualTemp">Temperature <span id="tempVal">35°C</span></label>
+      <input id="manualTemp" type="range" min="25" max="70" step="1" value="35">
+    </aside>
+
+    <section class="support-section glass-panel fade-in">
+      <h2 class="zone-title">SolarDT-X Customer Support</h2>
+      <p class="support-subtext">AI-powered remote monitoring assistance</p>
+      <div class="support-actions">
+        <button id="contactSupportBtn" class="hud-btn" type="button">Contact Support <span id="supportBadge" class="support-badge">!</span></button>
+        <button id="generateReportBtn" class="hud-btn" type="button">Generate Maintenance Report</button>
+        <button id="requestTechBtn" class="hud-btn" type="button">Request Technician Visit</button>
+        <button id="downloadPdfBtn" class="hud-btn" type="button">Download System Health PDF</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="supportChat" class="chat-popup glass-panel">
+    <div class="chat-header">
+      <h3>solardtx Support team</h3>
+      <button id="closeChatBtn" class="hud-btn" type="button">Close</button>
+    </div>
+    <div id="chatBody" class="chat-body">
+      <div class="chat-msg bot">Telemetry link active. How can I assist?</div>
+    </div>
+    <div id="chatTyping" class="chat-typing">AI is typing<span></span><span></span><span></span></div>
+  </div>
+
+  <div id="overlay" class="overlay">
+    <div class="overlay-content glass-panel">
+      <h2>SOLARDTX – PRESENTATION MODE</h2>
+      <p>Mission-grade solar intelligence platform with digital twin diagnostics.</p>
+      <p>Live telemetry is synchronized with AI expected output for predictive fault detection.</p>
+      <button id="closeOverlayBtn" class="hud-btn" type="button">Close</button>
+    </div>
+  </div>
+</body>
+</html>
